@@ -1,26 +1,27 @@
-from setuptools import setup, Extension
-
+from Cython.Build import cythonize
+from setuptools import Extension, setup
 
 define_macros = [
-    ('VOID', 'void'),
-    ('REAL', 'double'),
-    ('NO_TIMER', 1),
-    ('TRILIBRARY', 1),
-    ('ANSI_DECLARATORS', 1),
+    ("VOID", "void"),
+    ("REAL", "double"),
+    ("NO_TIMER", 1),
+    ("TRILIBRARY", 1),
+    ("ANSI_DECLARATORS", 1),
 ]
 
 ext_modules = [
     Extension(
-        'triangle.core',
-        ['c/triangle.c', 'triangle/core.c'],
-        include_dirs=['c'],
+        "triangle.core",
+        ["c/triangle.c", "triangle/core.pyx"],
+        include_dirs=["c"],
         define_macros=define_macros,
         # extra_compile_args=['-g'],
     ),
 ]
+ext_modules = cythonize(ext_modules)
 
 # see pyproject.toml for other metadata
 setup(
-    name='triangle',
+    name="triangle",
     ext_modules=ext_modules,
 )
