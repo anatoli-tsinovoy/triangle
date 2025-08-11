@@ -30,7 +30,7 @@ jobs:
           python -m cibuildwheel --output-dir dist
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: wheels-${{ matrix.os }}
           path: dist/
       - name: Upload To PyPI
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
